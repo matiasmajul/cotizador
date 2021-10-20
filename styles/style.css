@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    box-sizing: border-box;
+    font-family: 'Source Sans Pro', sans-serif;}
+
+header{
+    background-color:rgb(20, 167, 167);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.title{
+    font-weight: 600;
+    font-size: 3rem;
+}
+main{
+    display: flex;
+    justify-content: center;
+}
+
+.container{
+    width: 70%;
+    height: 100%;
+    margin-top: 2rem;
+    border: 1px solid rgb(20, 167, 167);
+    border-radius: 20px;
+    display: grid;
+
+}
+.container p{
+    margin: 1rem;
+    font-size: 1rem;
+}
+.subtitle{
+    font-weight: 300;
+    font-size: 1.5rem;
+    text-align: center;
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COTIZADOR</title>   
+    
+
+    <!--  ESTILOS -->
+    <link rel="stylesheet" href="./styles/style.css">
+
+    <!--  FUENTES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;600;900&display=swap" rel="stylesheet">
+       
+    
+</head>
+<body>
+    <header>
+        <h1 class="title">COTIZADOR DE VIAJES DE CARGA</h1>
+    </header>
+
+    <main>
+        <div class="container" id="container">
+            <h3 class="subtitle">Con nuestro Cotizador Online usted puede calcular el costo para transportar su carga, observar el recorrido y reservar su viaje para cuando lo necesite.</h3>
+            <div>
+                <input type="button" onclick="cotizar();" value="cotizar">
+                <button id=boton_obtenerTodos> Obtener</button>
+            </div>
+       </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script  src="js/index.js" ></script>
+
+</body>
+</html>
