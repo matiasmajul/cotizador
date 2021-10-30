@@ -11,7 +11,7 @@ body{
 
 
 .contenedor{    
-    background-image: url("/image/mapa.jpg");
+    background-image: url("./image/mapa.jpg");
     background-size: cover;
     background-color: #004297;
     background-blend-mode:soft-light;
@@ -139,4 +139,15 @@ body{
     cursor: pointer;
     display: none;
     font-size: 1.3rem;
+}
+
+@media (max-width:500px)
+{
+    .ingreso{
+        flex-direction: row;
+    }
+    
+    .muestra{
+        flex-direction: row;
+    }
 }
