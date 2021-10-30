@@ -141,13 +141,13 @@ body{
     font-size: 1.3rem;
 }
 
-@media (min-width:500px)
+@media (max-width:600px)
 {
     .ingreso{
-        flex-direction: row;
+        flex-direction: column;
     }
     
     .muestra{
-        flex-direction: row;
+        flex-direction: column;
     }
 }
