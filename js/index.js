@@ -1,227 +1,197 @@
-/*--------- FUNCIONES ---------------*/
-
-// FUNCION PARA VALIDAR PESO EN TONELADAS 
-function pesoValido(peso) {
-    do
-    {
-        if (peso<=0 || peso>45 )
-        {
-            alert("Ingrese peso válido!");
-            peso = Number(prompt("Ingrese peso de carga en toneladas, minimo 1 - máximo 45"));
-        }
-        else
-        {
-            return peso;
-        }       
-    }while(true)
-}
-
-//  FUNCION PARA SUMAR IVA
-const agregarIva = x => (x * 1.21).toFixed(1);
-
-// FUNCION PARA ORDENAR OBJETO
-function compararDistancia(a, b) {
-    if (a.distancia > b.distancia) {
-      return 1;
-    }
-    if (a.distancia < b.distancia) {
-      return -1;
-    }
-    return 0;
-  };
-
-
-  // FUNCION COTIZA
-function cotizar()
-{
-    let viajes = [];
-    let distancia;
-    let peso
-    do
-    {
-        distancia = Number(prompt("Ingrese distancia en KM: "));
-        peso = Number(prompt("Ingrese peso de carga en toneladas"));
-        peso = pesoValido(peso);
-    
-        // CREO OBJETO CON TIPO DE VEHICULO PREDEFINIDO
-        const viaje = new Viaje(distancia,peso,camiones[2]);
-    
-        //AGREGO OBJETO AL ARRAY
-        viajes.push(viaje);
-    
-        let salida= prompt("Seguir cotizando o ESC para salir").toUpperCase();
-        if(salida == "ESC") break;
-    
-    }while(true)
-    
-    viajes.sort(compararDistancia);
-    viajes.forEach(viaje => viaje.mostrarCosto());
-    viajes.forEach(viaje => viaje.mostrarCostoDolar());
-}
-/*--------------- CLASES-------------------*/
-
-// CLASE PARA OBTENER VALOR  CAMBIARIO
-class Peso{
-    constructor(cotizacionDolar)
-    {
-        this.cotizacionDolar=cotizacionDolar;
-    }
-
-    // ---------- METODOS -------------
-    cambioDolar(pesos)
-    {
-        return pesos / this.cotizacionDolar;
-    } 
-    cambioPeso(dolar) 
-    {
-       return dolar * this.cotizacionDolar;
-    }
-
-}
-
-// CLASE VEHICULO DONDE COSTO DE SEGUN TIPO DE CAMION, CARGA, COMBUSTIBLE Y CHOFER
-class Vehiculo{
-    constructor(tipo, carga, combustible, conductor)
-    {
-        // UPPERCASE PARA FACILITAR  VALIDACION
-        this.tipo= tipo.toUpperCase();
-        this.carga=carga.toUpperCase();
-
-        
-        this.costoCombustible = combustible;
-        this.costoConductor = conductor;
-
-    }
-
-     // FUNCION PARA DETERMINAR EL COSTO SEGUN TIPO DE CAMION Y TIPO DE CARGA
-    costoVehiculo(){
-        let costo;
-        switch (this.carga)
-        {
-            case "FRIA":
-                switch (this.tipo)
-                {
-                    case "ISOTERMICO":
-                        costo=2.1;
-                        break;
-                    case "REFRIGERADO":
-                        costo = 2.0;
-                        break;
-                    case "FRIGORIFICO":
-                        costo = 2.2;
-                        break;
-                    default:
-                        alert("Verificar tipo de camión o carga ");
-                        costo = 0;                 
-                }
-                break;
-            case "SECA":
-                switch (this.tipo)
-                {
-                    case "CONTENEDOR":
-                        costo=1.1;
-                        break;
-                    case "JAULA":
-                        costo = 1.5;
-                        break;
-                    case "LONA":
-                        costo = 1.2;
-                        break;
-                    default:
-                        alert("Verificar tipo de camión o carga ");
-                        costo = 0;                 
-                }
-                break;
-            case "PELIGROSA":
-                costo=3;
-                break;
-            default:
-                alert("Verificar tipo de carga");
-                costo=0;
-        }
-        costo += this.costoCombustible +this.costoConductor;
-        return costo;
-
-    }
-}
-
-class Viaje{
-    constructor(distancia, peso, camion)
-    {
-        this.distancia = distancia;
-        this.peso = peso;
-        this.camion = camion;
-    }
-
-    // ---------- METODOS -------------
-    costoTransporte()
-    {
-        let costoTotalTransporte = this.distancia * this.peso * this.camion.costoVehiculo(); 
-        return costoTotalTransporte.toFixed(1);
-    }
-
-    mostrarCosto() 
-    {    
-        let costo= this.costoTransporte();
-        let textoCosto = document.createElement("p");
-        textoCosto.innerText="Costo de transportar "+this.peso+" toneladas de carga "+ this.camion.carga + " en " +this.distancia+" km: $" + costo;
-
-        const contenedor = document.getElementById("container");
-        contenedor.appendChild(textoCosto);
-        
-        console.log("Costo de transportar "+this.peso+" toneladas de carga "+ this.camion.carga + " en " +this.distancia+" km: $" + costo );
-        console.log("Costo de transporte con IVA: $" + (agregarIva(costo)));
-    }
-    
-    mostrarCostoDolar() 
-    { 
-        let costoUSD = pesoValorBlue.cambioDolar(this.costoTransporte()).toFixed(1);
-        let textoCosto = document.createElement("p");
-        textoCosto.innerText="Costo de transportar "+this.peso+" toneladas en "+this.distancia+" km: " + costoUSD +" USD";
-
-        const contenedor = document.getElementById("container");
-        contenedor.appendChild(textoCosto);
-
-        console.log("Costo de transportar "+this.peso+" toneladas en "+this.distancia+" km: " + costoUSD +" USD")
-    }
-      
-}
-
-
 // ------ INICIALIZACION DE VARIABLES ---------
 
-const pesoValorBlue = new Peso(187);
-const camiones = [new Vehiculo("ISOTERMICO","FRIA",1.1,1.2), new Vehiculo("JAULA","SECA",1,0.8), new Vehiculo("peligrosa","peligrosa",2,2)];
+const rosario = {lat: -32.951, lng: -60.6664}; //LONGITUD Y LATITUD DE ROSARIO
 
+function initMap() {
+    let directionsService = new google.maps.DirectionsService();
+    const map = new google.maps.Map(document.getElementById("map"), {
+      mapTypeControl: false,
+      center: rosario,
+      zoom: 10,
+    });
 
+    new AutocompleteDirectionsHandler(map);
 
+    //EVENTO CLICK DE BOTON COTIZAR
+    document.getElementById("btn-cotizar").addEventListener("click",function(){calcularDistancia(directionsService)})
 
+  }
+  
+  class AutocompleteDirectionsHandler {
+    map;
+    originPlaceId;
+    destinationPlaceId;
+    travelMode;
+    directionsService;
+    directionsRenderer;
 
-$("#boton_obtenerTodos").click(function () {
-    $.ajax({
-     type: "GET",
-     url: "http://localhost:55987/api/Empleados",
-     contentType: "application/json; charset=utf-8",
-     dataType: "json",
-     success: function (data) {
-      $('#Table > tbody').empty();
-      $.each(data, function (i, item) {
-      var rows = 
-      "" +
-      "" + item.id + "" +
-      "" + item.Nombres + "" +
-      "" + item.Cargo + "" +
-      "" + item.Dpto + "" +
-      "";
-      $('#Table > tbody').append(rows);
+    constructor(map) {
+      this.map = map;
+      this.originPlaceId = "";
+      this.destinationPlaceId = "";
+      this.travelMode = google.maps.TravelMode.DRIVING;
+      this.directionsService = new google.maps.DirectionsService();
+      this.directionsRenderer = new google.maps.DirectionsRenderer();
+      this.directionsRenderer.setMap(map);
+  
+      const originInput = document.getElementById("origen");
+      const destinationInput = document.getElementById("destino");
+      const originAutocomplete = new google.maps.places.Autocomplete(originInput);
+
+      // Specify just the place data fields that you need.
+      originAutocomplete.setFields(["place_id"]);
+  
+      const destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
+  
+      // Specify just the place data fields that you need.
+      destinationAutocomplete.setFields(["place_id"]);
+      
+      this.setupPlaceChangedListener(originAutocomplete, "ORIG");
+      this.setupPlaceChangedListener(destinationAutocomplete, "DEST");
+    }
+    
+    setupPlaceChangedListener(autocomplete, mode) {
+      autocomplete.bindTo("bounds", this.map);
+      document.getElementById("btn-cotizar").addEventListener("click", () => {
+        const place = autocomplete.getPlace();
+  
+        if (!place.place_id) {
+          window.alert("Please select an option from the dropdown list.");
+          return;
+        }
+  
+        if (mode === "ORIG") {
+          this.originPlaceId = place.place_id;
+        } else {
+          this.destinationPlaceId = place.place_id;
+        }
+  
+        this.route();
       });
-      console.log(data);
-     },
-     failure: function (data) {
-      alert(data.responseText);
-     },
-     error: function (data) {
-      alert(data.responseText);
-     }
-    });
-    });
+    }
+    route() {
+
+      if (!this.originPlaceId || !this.destinationPlaceId) {
+        return;
+      }
+  
+      const me = this;
+      let service = new google.maps.DistanceMatrixService();
+
+      this.directionsService.route(
+        {
+          origin: { placeId: this.originPlaceId },
+          destination: { placeId: this.destinationPlaceId },
+          travelMode: this.travelMode,
+        },
+        (response, status) => {
+          if (status === "OK") {
+            me.directionsRenderer.setDirections(response);
+          } else {
+            window.alert("Directions request failed due to " + status);
+          }
+        }
+      );   
+    }
+    
+}
+
+
+function calcularDistancia(directionsService) {
+    
+    directionsService.route(
+      {
+          origin: document.getElementById("origen").value,
+          destination: document.getElementById("destino").value,
+          optimizeWaypoints: true,
+          travelMode: "DRIVING",
+      },
+      function(response, status) { 
+          let html= ""   ;
+          switch (status) {
+            case "OK":       // Si el mapa pudo resolver Origen y Destino
+                    jQuery("#alert").hide();
+                    jQuery("#btn-reservar").show();
+       
+                    let route = response.routes[0];
+                    let finalDistance;
+                    let precio = 0;
+                    const precioKM = 30;   // <--- Precio por KM 
+
+                    let distanceInMeters = route.legs[0].distance.value; 
+                    let distanceInKm = distanceInMeters / 1000;
+                    let distance = route.legs[0].distance.text; 
+                    
+                    precio = distanceInKm * precioKM;      
+
+                    let extractNumber = distance.split(" "); // ["1,3", "km"]
+                    let stringDistance = extractNumber[0]; // "1,3"
+                   
+                    if (stringDistance.includes(".")) {            // Si trae punto de mil, lo saca
+                      finalDistance = stringDistance.replace(/\./g,'');                      
+                    } else if (stringDistance.includes(",")){       // Si trae coma, (1,3km) la saca
+                      finalDistance = parseFloat(
+                        stringDistance
+                          .replace(/,/g, ".")
+                      );
+                    } else {
+                      finalDistance = parseFloat(stringDistance);  // String to Float
+                    } 
+
+                    let formatter = new Intl.NumberFormat('es-AR', {
+                      style: 'currency',
+                      currency: 'ARS',
+                    });
+                    
+
+
+                    // PRECIO POR  TIPO DE CARGA
+                    let tipoCarga = document.getElementById('tipo-carga').value;
+                    switch (tipoCarga)
+                    {
+                        case "SECA":
+                            precio*=1.1;
+                            break;
+                        case "REFRIGERADA":
+                        precio*=2;
+                        break;
+                        case "PELIGROSA":
+                            precio*=3;
+                            break;
+                        default:
+                            alert("Verificar tipo de carga");
+                            return 0;
+                    }
+                    precio = formatter.format(precio);  
+
+
+                    document.getElementById("tiempo").innerText = route.legs[0].duration.text;
+                    document.getElementById("distancia").innerText =finalDistance+ " Km";
+                    document.getElementById("costo").innerText =precio ;
+
+                  
+                  break;
+              case "NOT_FOUND":    // En caso que el mapa no resuelva la dirección ingresada
+                    jQuery("#btn-reservar").hide();
+                  jQuery("#alert").show();
+                  let error =
+                      html +
+                      "<p>No se encuentra la dirección, por favor revise Origen y Destino</p>";
+                  jQuery("#alert").html(error);
+                  break;
+              case "ZERO_RESULTS":
+                  jQuery("#alert").show();
+                  jQuery("#alert").html =
+                      html +
+                      "<p>No se encuentra la dirección, por favor revise Origen y Destino</p>";
+                  break;
+              case "REQUEST_DENIED":
+                  jQuery("#alert").show();
+                  jQuery("#alert").html =
+                      html +
+                      "the webpage is not allowed to use the directions service.";
+                  break;
+          }
+      }
+  );
+}

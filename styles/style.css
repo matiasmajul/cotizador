@@ -5,38 +5,139 @@
 
 body{
     box-sizing: border-box;
-    font-family: 'Source Sans Pro', sans-serif;}
+    font-family: 'Rubik', sans-serif;
+}
 
-header{
-    background-color:rgb(20, 167, 167);
+
+
+.contenedor{    
+    background-image: url("/image/mapa.jpg");
+    background-size: cover;
+    background-color: #004297;
+    background-blend-mode:soft-light;
+    height: 30vh;
+    width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    
+
 }
-.title{
-    font-weight: 600;
-    font-size: 3rem;
+
+.titulo{
+    color:white;
+    font-weight: 400;
+    font-size: 2.5rem;
 }
-main{
+
+.ingreso{
+    display: flex;
+    flex-direction: row;
+    margin: 1rem;
+    width: 50%;
+    background-color: white;
+    color:rgb(36, 36, 36);
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+.ingreso input{
+    width: 30%;
+    padding: 1rem;
+    border-radius: 10px 0 0 10px;
+    border: none;
+    border-right: 1px solid rgba(39, 39, 39, 0.5);
+}
+.ingreso select{
+    width: 30%;
+    border: none;
+}
+
+.ingreso button{
+    color:white;
+    box-shadow: 0 0 2px rgb(39, 39, 39);
+    width: 50px;
+    background-color: rgb(39, 39, 39);
+    
+    border-radius: 0 9px 9px 0;
+    border: none ;
+    font-size: 20px; 
+}
+
+.muestra{
+    position: relative;
+    bottom:-15%;
+    width: 60vw;
+    background-color: white;
+    color: rgb(39, 39, 39);
     display: flex;
     justify-content: center;
-}
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(39, 39, 39);
+    z-index: 1;
 
-.container{
-    width: 70%;
-    height: 100%;
-    margin-top: 2rem;
-    border: 1px solid rgb(20, 167, 167);
-    border-radius: 20px;
-    display: grid;
 
 }
-.container p{
-    margin: 1rem;
-    font-size: 1rem;
+
+.muestra div{
+    width: 33%;
+    margin: 1rem 0;
+    padding:0 1rem;
+    border-left: 1px solid rgba(39, 39, 39, 0.5);
 }
-.subtitle{
-    font-weight: 300;
-    font-size: 1.5rem;
+
+.muestra label{
+    color:rgb(97, 97, 97);
+}
+
+.muestra p{
+    color: black;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+
+.muestra .muestra-tiempo{
+    border-left:none ;
+}
+
+#map{
+    height: 70vh;
+    width: 100%;
+}
+
+#btn-reservar{
     text-align: center;
+    position: relative;
+    top: -50px;
+    width: 60%;
+    left: 20%;
+    background-color: #00c52b;
+    color: rgb(255, 255, 255);
+    padding: .5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none;
+    border: none;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+
+#alert{
+    text-align: center;
+    position: relative;
+    margin: 0 auto;
+    top: -100px;
+    left: 20px;
+    width: 60%;
+    background-color: #fd0000;
+    color: white;
+    padding: .5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none;
+    font-size: 1.3rem;
 }

@@ -6,34 +6,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COTIZADOR</title>   
     
-
     <!--  ESTILOS -->
     <link rel="stylesheet" href="./styles/style.css">
 
     <!--  FUENTES -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;600;900&display=swap" rel="stylesheet">
-       
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">       
     
 </head>
 <body>
-    <header>
-        <h1 class="title">COTIZADOR DE VIAJES DE CARGA</h1>
-    </header>
-
     <main>
-        <div class="container" id="container">
-            <h3 class="subtitle">Con nuestro Cotizador Online usted puede calcular el costo para transportar su carga, observar el recorrido y reservar su viaje para cuando lo necesite.</h3>
-            <div>
-                <input type="button" onclick="cotizar();" value="cotizar">
-                <button id=boton_obtenerTodos> Obtener</button>
+        <div class="contenedor">
+            <h1 class="titulo">Cotizador</h1>
+            <div class="ingreso">
+                <input id="origen" type="text" placeholder="Origen">
+                <input id="destino" type="text" placeholder="Destino">
+                <select name="carga" id="tipo-carga">
+                    <option value="REFRIGERADA">Refrigerada</option>
+                    <option value="SECA" selected>Seca</option>
+                    <option value="PELIGROSA">Peligrosa</option>    
+                </select>
+                <button id="btn-cotizar">></button>
             </div>
-       </div>
+            <div class="muestra">
+                <div class="muestra-tiempo">
+                    <label>TIEMPO</label>
+                    <p id="tiempo"></p>
+                </div>
+                <div class="muestra-distancia">
+                    <label>DISTANCIA</label>
+                    <p id="distancia"></p>
+                </div>
+                <div class="muestra-precio">
+                    <label>COSTO</label>
+                    <p id="costo"></p>
+                </div>
+            </div>
+        </div>
+        <div id="map"></div>
+        <input type="button" id="btn-reservar" value="RESERVAR" ></input>
+        <div id="alert"></div>
     </main>
+    
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script  src="js/index.js" ></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSeZsPeXx1FnxFqf7buPQ--3ZvkDJwwic&callback=initMap&libraries=places&v=weekly" ></script>
 
 </body>
 </html>
