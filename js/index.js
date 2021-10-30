@@ -1,19 +1,24 @@
 // ------ INICIALIZACION DE VARIABLES ---------
 
-const rosario = {lat: -32.951, lng: -60.6664}; //LONGITUD Y LATITUD DE ROSARIO
-
+const empresa = {lat: 25.892245, lng: -80.382963}; //LONGITUD Y LATITUD DE ROSARIO
 function initMap() {
     let directionsService = new google.maps.DirectionsService();
     const map = new google.maps.Map(document.getElementById("map"), {
-      mapTypeControl: false,
-      center: rosario,
+      disableDefaultUI: true,
+
+      center: empresa,
       zoom: 10,
     });
-
+    const marker = new google.maps.Marker({
+      position: empresa,
+      map: map,
+    });
     new AutocompleteDirectionsHandler(map);
 
     //EVENTO CLICK DE BOTON COTIZAR
-    document.getElementById("btn-cotizar").addEventListener("click",function(){calcularDistancia(directionsService)})
+    document.getElementById("btn-cotizar").addEventListener("click",function(){  
+      calcularDistancia(directionsService)
+    })
 
   }
   
@@ -33,7 +38,6 @@ function initMap() {
       this.directionsService = new google.maps.DirectionsService();
       this.directionsRenderer = new google.maps.DirectionsRenderer();
       this.directionsRenderer.setMap(map);
-  
       const originInput = document.getElementById("origen");
       const destinationInput = document.getElementById("destino");
       const originAutocomplete = new google.maps.places.Autocomplete(originInput);
@@ -83,6 +87,8 @@ function initMap() {
           origin: { placeId: this.originPlaceId },
           destination: { placeId: this.destinationPlaceId },
           travelMode: this.travelMode,
+          mapTypeId: "roadmap",
+
         },
         (response, status) => {
           if (status === "OK") {
