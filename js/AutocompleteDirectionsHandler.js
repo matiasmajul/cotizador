@@ -52,12 +52,10 @@ class AutocompleteDirectionsHandler {
       }
   
       const me = this;
-      this.directionsService.route(
-        {
+      this.directionsService.route({
           origin: { placeId: this.originPlaceId },
           destination: { placeId: this.destinationPlaceId },
           travelMode: this.travelMode,
-         
         },
         (response, status) => {
           if (status === "OK") {

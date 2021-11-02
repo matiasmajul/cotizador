@@ -39,6 +39,8 @@ function calcularDistancia(directionsService) {
               document.getElementById("tiempo").innerText = route.legs[0].duration.text;
               document.getElementById("distancia").innerText =distance;
               document.getElementById("costo").innerText =obtenerPrecio(distanceInKm) ;
+
+              almacenarLocalStorage(response);
               
               setTimeout(reservar,2000);
 
@@ -122,4 +124,24 @@ function reservar(){
       )
     }
   })
+}
+
+
+function almacenarLocalStorage(response)
+{ 
+  let route = response.routes[0];
+
+  let distanceInMeters = route.legs[0].distance.value; 
+  let distanceInKm = distanceInMeters / 1000;
+  let distance = route.legs[0].distance.text; 
+
+  const datosEnStorage = [{
+    origen:route.legs[0].end_address,
+    destino: route.legs[0].start_address,
+    distancia: distance, 
+    precio:obtenerPrecio(distanceInKm)
+  }];
+
+   localStorage.setItem("viajes", JSON.stringify(datosEnStorage));
+  
 }
