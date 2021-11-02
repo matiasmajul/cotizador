@@ -15,13 +15,16 @@ class AutocompleteDirectionsHandler {
       this.directionsRenderer = new google.maps.DirectionsRenderer();
       this.directionsRenderer.setMap(map);
 
+      const options = {
+        componentRestrictions: { country: "AR" },  
+      };
       const originInput = document.getElementById("origen");
-      const originAutocomplete = new google.maps.places.Autocomplete(originInput);
+      const originAutocomplete = new google.maps.places.Autocomplete(originInput, options);
       originAutocomplete.setFields(["place_id"]);
       this.setupPlaceChangedListener(originAutocomplete, "ORIG");
 
       const destinationInput = document.getElementById("destino");
-      const destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
+      const destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput, options);
       destinationAutocomplete.setFields(["place_id"]);
       this.setupPlaceChangedListener(destinationAutocomplete, "DEST");
     }

@@ -1,13 +1,13 @@
 // ------ INICIALIZACION DE VARIABLES ---------
 
-const empresa = {lat: 25.892245, lng: -80.382963}; //LONGITUD Y LATITUD
+const empresa = {lat: -32.975576, lng: -60.636536}; //LONGITUD Y LATITUD
 
 function initMap() {
     let directionsService = new google.maps.DirectionsService();
     const map = new google.maps.Map(document.getElementById("map"), {
       disableDefaultUI: true,
       center: empresa,
-      zoom: 10,
+      zoom: 12,
     });
     
     new AutocompleteDirectionsHandler(map);
