@@ -11,7 +11,7 @@ body{
 
 
 .contenedor{    
-    background-image: url("/image/mapa.jpg");
+    background-image: url("../image/mapa.jpg");
     background-size: cover;
     background-color: #004297;
     background-blend-mode:soft-light;
@@ -76,8 +76,7 @@ body{
     border-radius: 10px;
     box-shadow: 0 0 10px rgb(39, 39, 39);
     z-index: 1;
-
-
+    opacity: 0;
 }
 
 .muestra div{
@@ -107,9 +106,18 @@ body{
     width: 100%;
 }
 
-
+#clean-destino, #clean-origen{
+    position: relative;
+    left: 10px;
+    font-size: .8rem;
+    display: none;
+    cursor: pointer;
+}
 @media (max-width:600px)
 {
+    #destino, #origen{
+        padding: 1rem 0;
+    }
     .ingreso{
         width: 95%;
         flex-wrap: flex-wrap;
@@ -118,9 +126,16 @@ body{
         width: 50%;
     }
     .muestra{
-        flex-direction: column;
+        flex-direction: row;
+        font-size: .6rem;
+        width: 95%;
+    }
+    .muestra p{
         font-size: 1rem;
-    
-        
+    }
+
+    .muestra div{
+        padding: .5rem;
+        margin: .2rem 0;
     }
 }

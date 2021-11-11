@@ -1,22 +1,40 @@
 // ------ INICIALIZACION DE VARIABLES ---------
+const URL = "../data.json";
 
-const empresa = {lat: -32.975576, lng: -60.636536}; //LONGITUD Y LATITUD
 
 function initMap() {
-    let directionsService = new google.maps.DirectionsService();
-    const map = new google.maps.Map(document.getElementById("map"), {
-      disableDefaultUI: true,
-      center: empresa,
-      zoom: 12,
-    });
-    
-    new AutocompleteDirectionsHandler(map);
 
+  $.getJSON(URL, function(respuesta,estado){
+    if(estado === "success")
+    {
+      //Guardo 
+      let direccion={
+        lat: Number(respuesta.lat),
+        lng: Number(respuesta.lng)
+      }
+
+      const map = new google.maps.Map(document.getElementById("map"), {
+        disableDefaultUI: true,
+        center: direccion,
+        zoom: 12,
+      });
+    
+      new AutocompleteDirectionsHandler(map);
+    }
+
+  })
+
+
+    let directionsService = new google.maps.DirectionsService();
     //EVENTO CLICK DE BOTON COTIZAR
     document.getElementById("btn-cotizar").addEventListener("click",function(){  
       calcularDistancia(directionsService)
-    })
+    });
+
+    limpiarInput();
+
   }
+ 
   
 function calcularDistancia(directionsService) { 
   directionsService.route(
@@ -40,19 +58,25 @@ function calcularDistancia(directionsService) {
               document.getElementById("distancia").innerText =distance;
               document.getElementById("costo").innerText =obtenerPrecio(distanceInKm) ;
 
-              almacenarLocalStorage(response);
-              
+              $('.muestra').animate({   top:'-50%',
+                                        opacity:'1',
+                                        
+                                          }, //1er parámetro propiedades
+                                        "slow",            //2do parámetro duración 
+                                        almacenarLocalStorage(response)
+              );
+            
               setTimeout(reservar,2000);
 
               break;
             case "NOT_FOUND":    // En caso que el mapa no resuelva la dirección ingresada
-              mostrarError("DIRECCION NO ENCONTRADA",`No se encuentra la dirección, por favor revise "${origen.value}" o "${destino.value}"`);
+              mostrarError("DIRECCIÓN NO ENCONTRADA",`No se encuentra la dirección, por favor revise "${origen.value}" o "${destino.value} y seleccione una opción de la lista."`);
               break;
             case "ZERO_RESULTS":
-              mostrarError("DIRECCION EXCEDIDA",`Distancia no permitida`);
+              mostrarError("DIRECCIÓN EXCEDIDA",`Distancia no permitida.`);
               break;
             case "REQUEST_DENIED":
-              mostrarError("SOLICITUD NO ENCONTRADA",`Error al realizar solicitud`);
+              mostrarError("SOLICITUD NO ENCONTRADA",`Error al realizar solicitud.`);
               break;
           }
       }
@@ -144,4 +168,24 @@ function almacenarLocalStorage(response)
 
    localStorage.setItem("viajes", JSON.stringify(datosEnStorage));
   
+}
+
+function limpiarInput()
+{
+  $('#origen').on("change",()=>{
+    $('#clean-origen').show()
+  })
+  $('#destino').on("change",()=>{
+    $('#clean-destino').show()
+  })
+
+  $('#clean-origen').click(()=>{
+    $('#origen').val(" ")
+    $('#clean-origen').hide();
+  })
+  $('#clean-destino').click(()=>{
+    $('#destino').val(" ")
+    $('#clean-destino').hide();
+  })
+
 }

@@ -33,8 +33,7 @@ class AutocompleteDirectionsHandler {
       autocomplete.bindTo("bounds", this.map);
       document.getElementById("btn-cotizar").addEventListener("click", () => {
         const place = autocomplete.getPlace();
-        if (!place.place_id) {
-          mostrarError("ERROR", 'Selecciona una opción de la lista');
+        if (!place) {
           return;
         }
   
