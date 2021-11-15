@@ -1,5 +1,5 @@
 // ------ INICIALIZACION DE VARIABLES ---------
-const URL = "../data.json";
+const URL = "https://matiasmajul.github.io/cotizador/data.json";
 
 
 function initMap() {
