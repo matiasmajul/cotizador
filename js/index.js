@@ -1,5 +1,5 @@
 // ------ INICIALIZACION DE VARIABLES ---------
-const URL = "../data.json";
+const URL = "https://matiasmajul.github.io/cotizador/data.json";
 
 
 function initMap() {
@@ -58,12 +58,13 @@ function calcularDistancia(directionsService) {
               document.getElementById("distancia").innerText =distance;
               document.getElementById("costo").innerText =obtenerPrecio(distanceInKm) ;
 
-              $('.muestra').animate({   top:'-50%',
+              $('.muestra').animate({   top:'-5%',
                                         opacity:'1',
                                         
                                           }, //1er parámetro propiedades
-                                        "slow",            //2do parámetro duración 
+                                        2500,            //2do parámetro duración 
                                         almacenarLocalStorage(response)
+
               );
             
               setTimeout(reservar,2000);
