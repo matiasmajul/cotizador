@@ -24,7 +24,6 @@ function initMap() {
 
   })
 
-
     let directionsService = new google.maps.DirectionsService();
     //EVENTO CLICK DE BOTON COTIZAR
     document.getElementById("btn-cotizar").addEventListener("click",function(){  
@@ -142,6 +141,8 @@ function reservar(){
     inputPlaceholder: 'Ingresá tu dirección de correo'
   }).then((result) => {
     if (result.isConfirmed) {
+      console.log(result)
+      enviarCorreo(result.value);
       Swal.fire(
         'Enviado!',
         'Revisa tu casilla de correo',
@@ -190,3 +191,23 @@ function limpiarInput()
   })
 
 }
+
+
+function enviarCorreo(toEmail){
+ let myHtml= document.getElementsByClassName("muestra")[0].innerText;
+emailjs.send('service_8oovezj', 'template_91e4ylk', {
+  to_name: "millenium-transport@gmail.com",
+  from_name: "Millenium Transport",
+  message: myHtml,
+  to_email: toEmail,
+  })
+    .then(function(response) {
+       console.log('SUCCESS!', response.status, response.text);
+    }, function(error) {
+       console.log('FAILED...', error);
+    });
+}
+
+
+
+

@@ -18,6 +18,7 @@ class AutocompleteDirectionsHandler {
       const options = {
         componentRestrictions: { country: "AR" },  
       };
+      
       const originInput = document.getElementById("origen");
       const originAutocomplete = new google.maps.places.Autocomplete(originInput, options);
       originAutocomplete.setFields(["place_id"]);
