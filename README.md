@@ -1,5 +1,9 @@
 Cotizador de transporte de cargas frias/refrigeradas/peligrosas
 
+API GOOGLE MAPS - Ruteo, geolocalización, distancias, busqueda 
+EMAILJS - Envio de correo
+SWEET ALERT2 - Modales
+
 
 https://matiasmajul.github.io/cotizador/
 
